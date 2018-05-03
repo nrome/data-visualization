@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DataPanelOneComponent } from './components/data-panel-one/data-panel-one.component';
 import { PanelOneService } from './services/panel-one.service';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { PanelOneService } from './services/panel-one.service';
     AppComponent,
     NavbarComponent,
     DashboardComponent,
-    DataPanelOneComponent
+    DataPanelOneComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule
