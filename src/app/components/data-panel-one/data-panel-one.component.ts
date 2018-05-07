@@ -81,8 +81,8 @@ export class DataPanelOneComponent implements OnInit {
 }
 
 
-/* Logarithmic Scale Example
-   Simiar to Linear Scale
+/**
+  * Logarithmic Scale Example
 
     const x = d3.scaleLog()
               .domain([300, 150000])
@@ -97,8 +97,7 @@ export class DataPanelOneComponent implements OnInit {
           console.log(x.invert(181.1)) // 5000
           console.log(x.invert(329.3)) // 50000
 
-  Time Scale Example
-  Similar to Linear Scale
+  * Time Scale Example
 
     const x = d3.scaleTime()
               .domain([new Date(2000, 0, 1), new Date(2001, 0, 1)])
@@ -112,4 +111,20 @@ export class DataPanelOneComponent implements OnInit {
           console.log(x.invert(66.5)) // Wed Mar 01 2000
           console.log(x.invert(360)) // Sun Nov 25 2000
 
-*/
+  * Ordinal Scale Example using D3 API colorscheme
+
+    const x = d3.scaleOridinal()
+              .domain(['AFRICA',
+                       'N. AMERICA',
+                       'S. AMERICA',
+                       'EUROPE',
+                       'ASIA',
+                       'AUSTRALASIA'])
+              .range(d3.shcemeCategory10)
+              .base(10);
+
+          console.log(color('AFRICA')) // #1f77b4
+          console.log(color('ASIA')) // #9467bd
+          console.log(color('ANTARCTICA')) // #e377c2
+          console.log(color('PANGAEA')) // #7f7f7f
+**/
