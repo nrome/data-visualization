@@ -83,19 +83,33 @@ export class DataPanelOneComponent implements OnInit {
 
 /* Logarithmic Scale Example
    Simiar to Linear Scale
-   display of exponential growth over time
 
-  const y = d3.scaleLog()
-            .domain([300, 150000])
-            .range([0, 400])
-            .base(10);
+    const x = d3.scaleLog()
+              .domain([300, 150000])
+              .range([0, 400])
+              .base(10);
 
-        console.log(x(500)) // 32.9
-        console.log(x(5000)) // 181.1
-        console.log(x(50000)) // 329.3
+          console.log(x(500)) // 32.9
+          console.log(x(5000)) // 181.1
+          console.log(x(50000)) // 329.3
 
-        console.log(x.invert(32.9)) // 500
-        console.log(x.invert(181.1)) // 5000
-        console.log(x.invert(329.3)) // 50000
+          console.log(x.invert(32.9)) // 500
+          console.log(x.invert(181.1)) // 5000
+          console.log(x.invert(329.3)) // 50000
+
+  Time Scale Example
+  Similar to Linear Scale
+
+    const x = d3.scaleTime()
+              .domain([new Date(2000, 0, 1), new Date(2001, 0, 1)])
+              .range([0, 400]);
+
+          console.log(x(new Date(2000, 7, 1))) // 199
+          console.log(x(new Date(2000, 2, 1))) // 66.5
+          console.log(x(new Date(2000, 10, 25))) // 360
+
+          console.log(x.invert(232.8)) // Tue Aug 01 2000
+          console.log(x.invert(66.5)) // Wed Mar 01 2000
+          console.log(x.invert(360)) // Sun Nov 25 2000
 
 */
