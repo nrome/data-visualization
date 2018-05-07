@@ -54,7 +54,7 @@ export class DataPanelOneComponent implements OnInit {
       const y = d3.scaleLinear()
                 .domain([0, 828]) // input or MAX raw data (i.e. 0 - 828)
                 .range([0, 400]); // output or value to normalize (i.e. 0 - 400)
-                
+
       const rects = svg.selectAll('rect')
                      .data(data)
                      .enter()
@@ -79,3 +79,23 @@ export class DataPanelOneComponent implements OnInit {
   } // ngOnInit
 
 }
+
+
+/* Logarithmic Scale Example
+   Simiar to Linear Scale
+   display of exponential growth over time
+
+  const y = d3.scaleLog()
+            .domain([300, 150000])
+            .range([0, 400])
+            .base(10);
+
+        console.log(x(500)) // 32.9
+        console.log(x(5000)) // 181.1
+        console.log(x(50000)) // 329.3
+
+        console.log(x.invert(32.9)) // 500
+        console.log(x.invert(181.1)) // 5000
+        console.log(x.invert(329.3)) // 50000
+
+*/
