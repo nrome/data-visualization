@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DataPanelOneComponent } from './components/data-panel-one/data-panel-one.component';
 import { PanelOneService } from './services/panel-one.service';
+import { BuildingsService } from './services/buildings.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { PanelOneService } from './services/panel-one.service';
   imports: [
     BrowserModule
   ],
-  providers: [PanelOneService],
+  providers: [PanelOneService, BuildingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
