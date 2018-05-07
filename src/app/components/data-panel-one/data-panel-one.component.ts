@@ -40,30 +40,49 @@ export class DataPanelOneComponent implements OnInit {
     const svg = d3.select('#chart-area')
       .append('svg')
         .attr('width', '500')
-        .attr('height', '500');
+        .attr('height', '600');
 
     // pull static data from the assets dir
     // latest version of d3 affords use of js promises to build visuals
     d3.json('../../../assets/static-data/buildings.json').then((data) => {
       console.log(data);
+
       data.forEach(d => {
+        console.log(d.height);
         d.height = +d.height;
       });
 
       // height proportioned to height of buildings
+      const x = d3.scaleBand()
+                .domain(['Burj Khalifa',
+                         'Shanghai Tower',
+                         'Abraj Al-Bait Clock Tower',
+                         'Ping An Finance Centre',
+                         'Lotte World Tower',
+                         'One World Trade Center',
+                         'Guangzhou CTF Finance Center'])
+                .range([0, 400])
+                .paddingInner(0.4)
+                .paddingOuter(0.4);
+
+      console.log(x('Burj Khalifa'));
+
       const y = d3.scaleLinear()
-                .domain([0, 828]) // input or MAX raw data (i.e. 0 - 828)
-                .range([0, 400]); // output or value to normalize (i.e. 0 - 400)
+                  .domain([0, 828])
+                  .range([0, 400]);
 
       const rects = svg.selectAll('rect')
                      .data(data)
                      .enter()
                      .append('rect')
                      .attr('y', 20)
-                     .attr('x', (d, i) => {
-                       return (i * 60);
+                     .attr('x', (d) => {
+                     // .attr('x', (d, i) => {
+                       // return (i * 60);
+                       return x(d.name);
                      })
-                     .attr('width', 40)
+                     // .attr('width', 40)
+                     .attr('width', x.bandwidth)
                      .attr('height', (d) => {
                        return y(d.height);
                      })
@@ -121,7 +140,6 @@ export class DataPanelOneComponent implements OnInit {
                        'ASIA',
                        'AUSTRALASIA'])
               .range(d3.shcemeCategory10)
-              .base(10);
 
           console.log(color('AFRICA')) // #1f77b4
           console.log(color('ASIA')) // #9467bd
