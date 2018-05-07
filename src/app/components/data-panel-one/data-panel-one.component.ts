@@ -22,7 +22,7 @@ export class DataPanelOneComponent implements OnInit {
     // using a javascript/ES6 promise w/ arrow func
     // not sure about performance implications with either approach
 
-    d3.json('https://jsonplaceholder.typicode.com/users').then((data) => {
+    d3.json('//jsonplaceholder.typicode.com/users').then((data) => {
 
       // console.log(data);
 
@@ -57,8 +57,9 @@ export class DataPanelOneComponent implements OnInit {
                 return 'red';
             }
           });
-
-
+      // new - we can catch errors when promises are rejected
+    }).catch((error) => {
+      console.log(error);
     });
 
 
@@ -97,6 +98,6 @@ export class DataPanelOneComponent implements OnInit {
                     .attr('ry', 10);
   */
 
-  } 
+  } // ngOnInit
 
 }
