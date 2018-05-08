@@ -54,13 +54,10 @@ export class DataPanelOneComponent implements OnInit {
 
       // height proportioned to height of buildings
       const x = d3.scaleBand()
-                .domain(['Burj Khalifa',
-                         'Shanghai Tower',
-                         'Abraj Al-Bait Clock Tower',
-                         'Ping An Finance Centre',
-                         'Lotte World Tower',
-                         'One World Trade Center',
-                         'Guangzhou CTF Finance Center'])
+                // maps the defined array of data
+                .domain(data.map((d) => {
+                  return d.name;
+                }))
                 .range([0, 400])
                 .paddingInner(0.4)
                 .paddingOuter(0.4);
@@ -68,7 +65,9 @@ export class DataPanelOneComponent implements OnInit {
       console.log(x('Burj Khalifa'));
 
       const y = d3.scaleLinear()
-                  .domain([0, 828])
+                  .domain([0, d3.max(data, (d) => {
+                    return d.height;
+                  })])
                   .range([0, 400]);
 
       const rects = svg.selectAll('rect')
@@ -101,53 +100,6 @@ export class DataPanelOneComponent implements OnInit {
 
 
 /**
-  * Min, Max, and Extend functions in D3
-
-    let data = [
-      { grade: 'A', value: 4 },
-      { grade: 'B', value: 3 },
-      { grade: 'C', value: 2 }
-    ]
-
-    let min = d3.min(data, (d) => {
-      return d.value;
-    })
-
-    console.log(min) // 2
-
-    let max = d3.max(data, (d) => {
-      return d.value;
-    })
-
-    console.log(max) // 4
-
-    let val_extent = d3.extent(data, (d) => {
-      return d.value;
-    })
-
-    console.log(val_extent) // [2, 4]
-
-    let grade_map = data.map((d) => {
-      return d.grade;
-    })
-
-    console.log(grade_map) // ['A', 'B', 'C']
-
-    let y = d3.scaleLinear()
-      .domain([
-        d3.min(data, (d) => { return d.value; });
-        d3.max(data, (d) => { return d.value; });
-      ]) // [2, 4]
-      .range([0, 400])
-
-    let y = d3.scaleLinear()
-      .domain([d3.extent(data, (d) => { return d.value; })]) // [2, 4]
-      .range([0, 400])
-
-    let x = d3.scaleBand()
-      .domain(data.map((d) => { return d.grade; })) // ['A','B','C']
-      .range([0, 400])
-      .paddingInner(0.3)
-      .paddingOuter(0.3);
+  * Examples
 
 **/
