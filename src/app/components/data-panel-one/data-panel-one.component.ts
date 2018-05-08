@@ -101,48 +101,53 @@ export class DataPanelOneComponent implements OnInit {
 
 
 /**
-  * Logarithmic Scale Example
+  * Min, Max, and Extend functions in D3
 
-    const x = d3.scaleLog()
-              .domain([300, 150000])
-              .range([0, 400])
-              .base(10);
+    let data = [
+      { grade: 'A', value: 4 },
+      { grade: 'B', value: 3 },
+      { grade: 'C', value: 2 }
+    ]
 
-          console.log(x(500)) // 32.9
-          console.log(x(5000)) // 181.1
-          console.log(x(50000)) // 329.3
+    let min = d3.min(data, (d) => {
+      return d.value;
+    })
 
-          console.log(x.invert(32.9)) // 500
-          console.log(x.invert(181.1)) // 5000
-          console.log(x.invert(329.3)) // 50000
+    console.log(min) // 2
 
-  * Time Scale Example
+    let max = d3.max(data, (d) => {
+      return d.value;
+    })
 
-    const x = d3.scaleTime()
-              .domain([new Date(2000, 0, 1), new Date(2001, 0, 1)])
-              .range([0, 400]);
+    console.log(max) // 4
 
-          console.log(x(new Date(2000, 7, 1))) // 199
-          console.log(x(new Date(2000, 2, 1))) // 66.5
-          console.log(x(new Date(2000, 10, 25))) // 360
+    let val_extent = d3.extent(data, (d) => {
+      return d.value;
+    })
 
-          console.log(x.invert(232.8)) // Tue Aug 01 2000
-          console.log(x.invert(66.5)) // Wed Mar 01 2000
-          console.log(x.invert(360)) // Sun Nov 25 2000
+    console.log(val_extent) // [2, 4]
 
-  * Ordinal Scale Example using D3 API colorscheme
+    let grade_map = data.map((d) => {
+      return d.grade;
+    })
 
-    const x = d3.scaleOridinal()
-              .domain(['AFRICA',
-                       'N. AMERICA',
-                       'S. AMERICA',
-                       'EUROPE',
-                       'ASIA',
-                       'AUSTRALASIA'])
-              .range(d3.shcemeCategory10)
+    console.log(grade_map) // ['A', 'B', 'C']
 
-          console.log(color('AFRICA')) // #1f77b4
-          console.log(color('ASIA')) // #9467bd
-          console.log(color('ANTARCTICA')) // #e377c2
-          console.log(color('PANGAEA')) // #7f7f7f
+    let y = d3.scaleLinear()
+      .domain([
+        d3.min(data, (d) => { return d.value; });
+        d3.max(data, (d) => { return d.value; });
+      ]) // [2, 4]
+      .range([0, 400])
+
+    let y = d3.scaleLinear()
+      .domain([d3.extent(data, (d) => { return d.value; })]) // [2, 4]
+      .range([0, 400])
+
+    let x = d3.scaleBand()
+      .domain(data.map((d) => { return d.grade; })) // ['A','B','C']
+      .range([0, 400])
+      .paddingInner(0.3)
+      .paddingOuter(0.3);
+
 **/
