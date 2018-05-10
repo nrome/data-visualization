@@ -86,8 +86,8 @@ export class InteractiveDataComponent implements OnInit {
           return d.month;
         }))
         .range([0, width])
-        .paddingInner(0.2)
-        .paddingOuter(0.2);
+        .paddingInner(0.3)
+        .paddingOuter(0.3);
 
       // graph text generators
       const xAxisCall = d3.axisBottom(x);
@@ -124,24 +124,21 @@ export class InteractiveDataComponent implements OnInit {
 
       const rects = g.selectAll('rect')
         .data(data)
-
-      rects.enter()
+        .enter()
         .append('rect')
-          .attr('y', (d) => {
-            return y(d.revenue);
-          })
-          .attr('x', (d) => {
-            return x(d.month);
-          })
-          .attr('height', (d) => {
-            return height - y(d.revenue);
-          })
-          .attr('width', x.bandwidth)
-          .attr('fill', 'green');
-
-      d3.interval(() => {
-        console.log('hey there');
-      }, 1000);
+        .attr('y', (d) => {
+          return y(d.profit);
+        })
+        .attr('x', (d) => {
+          return x(d.month);
+        })
+        .attr('width', x.bandwidth)
+        .attr('height', (d) => {
+          return height - y(d.profit);
+        })
+        .attr('fill', (d) => {
+          return 'grey';
+        });
 
     }).catch((error) => {
         console.log(error);
@@ -150,4 +147,3 @@ export class InteractiveDataComponent implements OnInit {
   } // ngOnInit
 
 }
-
