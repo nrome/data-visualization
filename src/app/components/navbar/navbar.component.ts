@@ -1,4 +1,8 @@
+// angular
 import { Component, OnInit } from '@angular/core';
+// services
+import { Router } from '@angular/router';
+// models
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

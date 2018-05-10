@@ -1,35 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
-// services
-import { BuildingsService } from '../../services/buildings.service';
 // models
 import { Buildings } from '../../models/buildings';
 import { Revenue } from '../../models/revenue';
 
 @Component({
-  selector: 'app-data-panel-one',
-  templateUrl: './data-panel-one.component.html',
-  styleUrls: ['./data-panel-one.component.css']
+  selector: 'app-interactive-data',
+  templateUrl: './interactive-data.component.html',
+  styleUrls: ['./interactive-data.component.css']
 })
-export class DataPanelOneComponent implements OnInit {
+export class InteractiveDataComponent implements OnInit {
 
-  // inject services
-  constructor(private buildingService: BuildingsService) { }
-
-  // define properties
-  buildings: Buildings[];
+  constructor() { }
 
   ngOnInit() {
 
     d3.select('h3').style('color', 'green');
-
-    // ########################################
-    // CALL IN MOCK SERVICE
-    // ########################################
-
-    this.buildings = this.buildingService.getBuildings();
-    console.log(this.buildings);
 
     // ########################################
     // TARGET DOM/SELECTOR, SET BOUNDARIES
@@ -99,8 +86,8 @@ export class DataPanelOneComponent implements OnInit {
           return d.month;
         }))
         .range([0, width])
-        .paddingInner(0.3)
-        .paddingOuter(0.3);
+        .paddingInner(0.2)
+        .paddingOuter(0.2);
 
       // graph text generators
       const xAxisCall = d3.axisBottom(x);
@@ -137,21 +124,24 @@ export class DataPanelOneComponent implements OnInit {
 
       const rects = g.selectAll('rect')
         .data(data)
-        .enter()
+
+      rects.enter()
         .append('rect')
-        .attr('y', (d) => {
-          return y(d.profit);
-        })
-        .attr('x', (d) => {
-          return x(d.month);
-        })
-        .attr('width', x.bandwidth)
-        .attr('height', (d) => {
-          return height - y(d.profit);
-        })
-        .attr('fill', (d) => {
-          return 'grey';
-        });
+          .attr('y', (d) => {
+            return y(d.revenue);
+          })
+          .attr('x', (d) => {
+            return x(d.month);
+          })
+          .attr('height', (d) => {
+            return height - y(d.revenue);
+          })
+          .attr('width', x.bandwidth)
+          .attr('fill', 'green');
+
+      d3.interval(() => {
+        console.log('hey there');
+      }, 1000);
 
     }).catch((error) => {
         console.log(error);
@@ -160,3 +150,4 @@ export class DataPanelOneComponent implements OnInit {
   } // ngOnInit
 
 }
+
